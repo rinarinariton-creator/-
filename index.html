@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fff5f8">
+<title>ME TYPE｜自分磨きタイプ診断</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;color:#493a43;background:linear-gradient(145deg,#fff9f5,#fcedf3 55%,#f1ebf8);min-height:100vh}
+.wrap{max-width:720px;margin:auto;padding:24px 14px 60px}
+.card{background:rgba(255,255,255,.94);border-radius:28px;padding:26px;box-shadow:0 18px 55px rgba(105,68,85,.12)}
+.logo{font-size:13px;font-weight:900;letter-spacing:.13em}.logo b{color:#d985a4}
+.hero{text-align:center;font-size:66px;margin:16px}
+.pill{display:inline-block;background:#f9dce8;padding:8px 13px;border-radius:99px;font-size:12px;font-weight:800}
+h1{font-size:34px;line-height:1.2;margin:18px 0 12px}h2{font-size:23px;line-height:1.55}
+.sub{font-size:14px;line-height:1.9;color:#77666e}
+.primary{width:100%;border:0;border-radius:18px;padding:17px;background:#493a43;color:#fff;font-size:16px;font-weight:800;margin-top:20px;cursor:pointer}
+.hidden{display:none}
+.progress{height:8px;background:#f1e7eb;border-radius:9px;overflow:hidden;margin:18px 0 27px}
+.bar{height:100%;background:linear-gradient(90deg,#e89bb5,#c5a6d8);transition:.25s}
+.qno{font-size:12px;color:#d985a4;font-weight:900}
+.answers{display:grid;gap:11px}
+.answer{border:1.5px solid #eadce2;background:#fff;border-radius:18px;padding:16px;text-align:left;color:#493a43;font-size:15px;line-height:1.5;cursor:pointer}
+.answer:active{transform:scale(.99);background:#fff7fa}
+.back{border:0;background:none;color:#9b8790;margin-top:18px;cursor:pointer}
+.resultIcon{text-align:center;font-size:70px}.type{text-align:center;font-size:28px;font-weight:900}
+.code{text-align:center;font-size:12px;letter-spacing:.18em;color:#a88b98;margin-top:4px}
+.catch{text-align:center;color:#d985a4;font-weight:800;margin:10px 0 20px}
+.axis{margin:15px 0}.axisTop{display:flex;justify-content:space-between;font-size:11px;font-weight:800}
+.track{height:10px;background:#eee6ea;border-radius:10px;overflow:hidden;margin-top:7px}.dot{height:100%;background:linear-gradient(90deg,#e89ab5,#c6a9da)}
+.box{background:#fff6fa;border-radius:20px;padding:18px;margin-top:18px;line-height:1.8}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.tag{font-size:12px;background:#fff;border:1px solid #eadce2;border-radius:99px;padding:8px 11px}
+.note{font-size:10px;line-height:1.6;color:#9b8a91;margin-top:18px}
+@media(max-width:520px){.wrap{padding:14px 12px 40px}.card{padding:22px 18px;border-radius:24px}h1{font-size:30px}.hero{font-size:60px}}
+</style>
+<style>
+.journey{margin-top:22px;padding-top:4px}.journeyTitle{font-size:22px;font-weight:900;margin:0 0 6px}.journeyLead{font-size:13px;line-height:1.8;color:#77666e;margin:0 0 15px}.concernGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.concernBtn{border:1.5px solid #eadce2;background:#fff;border-radius:18px;padding:15px 12px;text-align:left;color:#493a43;cursor:pointer;min-height:88px}.concernBtn:active,.concernBtn.active{background:#fff1f6;border-color:#dc93ad}.concernEmoji{font-size:24px;display:block;margin-bottom:6px}.concernName{font-size:14px;font-weight:900;display:block}.concernSub{font-size:10px;color:#927e87;display:block;margin-top:4px;line-height:1.45}.choicePanel{margin-top:14px;background:linear-gradient(145deg,#fff7fa,#fff);border:1px solid #f0dfe6;border-radius:22px;padding:18px}.choicePanel h3{font-size:20px;margin:0 0 8px}.choicePanel p{font-size:13px;line-height:1.8;margin:7px 0;color:#66555d}.microLabel{font-size:10px;font-weight:900;letter-spacing:.1em;color:#d985a4}.pathSteps{display:grid;gap:8px;margin:14px 0}.pathStep{background:#fff;border-radius:14px;padding:12px;font-size:12px;line-height:1.55;border:1px solid #f0e5e9}.ctaRow{display:grid;gap:9px;margin-top:14px}.softBtn,.linkBtn{display:block;width:100%;border-radius:15px;padding:13px 14px;text-align:center;font-size:13px;font-weight:900;text-decoration:none;cursor:pointer}.softBtn{border:1px solid #eadce2;background:#fff;color:#493a43}.linkBtn{border:0;background:#493a43;color:#fff}.futureCard{margin-top:18px;background:linear-gradient(135deg,#f9dfe9,#eee4f7);border-radius:22px;padding:18px}.futureCard b{font-size:16px}.futureCard p{font-size:12px;line-height:1.8;margin-bottom:0}.demoToast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#493a43;color:white;padding:12px 16px;border-radius:99px;font-size:12px;font-weight:800;z-index:9;box-shadow:0 10px 30px rgba(73,58,67,.25);max-width:88%;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section id="start" class="card">
+<div class="logo">MY <b>ME TYPE</b></div>
+<div class="hero">🪞🎀</div>
+<span class="pill">全24問｜約3分</span>
+<h1>「可愛くなりたい」の<br>その先の、わたしへ。</h1>
+<p class="sub">SNS、美容、自分磨き、将来。24の質問から、あなたの「選び方のクセ」を4つの軸でチェック。16種類のME TYPEから、あなたに近いタイプを見つけます。</p>
+<button class="primary" onclick="begin()">診断をはじめる ♡</button>
+</section>
+
+<section id="quiz" class="card hidden">
+<div class="logo">MY <b>ME TYPE</b></div>
+<div class="progress"><div id="bar" class="bar"></div></div>
+<div id="qno" class="qno"></div>
+<h2 id="question"></h2>
+<div id="answers" class="answers"></div>
+<button class="back" onclick="goBack()">← ひとつ戻る</button>
+</section>
+
+<section id="result" class="card hidden">
+<div class="logo">YOUR <b>ME TYPE</b></div>
+<div id="icon" class="resultIcon"></div>
+<div id="type" class="type"></div>
+<div id="code" class="code"></div>
+<div id="catch" class="catch"></div>
+<p id="desc" class="sub"></p>
+<div id="axes"></div>
+<div class="box"><b>💌 MY CHOICE</b><div id="advice" style="margin-top:7px"></div></div>
+<div class="box"><b>あなたの強み</b><div id="strength" style="margin-top:7px"></div></div>
+<div class="journey"><div class="microLabel">MY LIFE, MY CHOICE</div><div class="journeyTitle">今のわたし、何が気になる？</div><p class="journeyLead">悩みは、年齢やライフステージで変わっていくもの。今のあなたに近いテーマを選んでみて。診断結果を「答え」ではなく、自分で選ぶための入口に。</p>
+<div class="concernGrid">
+<button class="concernBtn" onclick="showConcern('beauty',this)"><span class="concernEmoji">💄</span><span class="concernName">美容・自分磨き</span><span class="concernSub">肌・体型・ヘア・美容情報</span></button>
+<button class="concernBtn" onclick="showConcern('career',this)"><span class="concernEmoji">💼</span><span class="concernName">キャリア・働き方</span><span class="concernSub">就活・転職・仕事と人生</span></button>
+<button class="concernBtn" onclick="showConcern('love',this)"><span class="concernEmoji">💗</span><span class="concernName">恋愛・パートナー</span><span class="concernSub">恋愛・結婚・関係性</span></button>
+<button class="concernBtn" onclick="showConcern('body',this)"><span class="concernEmoji">🌱</span><span class="concernName">からだ・妊娠の未来</span><span class="concernSub">プレコン・妊活・妊娠・出産</span></button>
+<button class="concernBtn" onclick="showConcern('mind',this)"><span class="concernEmoji">🫧</span><span class="concernName">こころ・自分らしさ</span><span class="concernSub">比較・SNS疲れ・自信</span></button>
+<button class="concernBtn" onclick="showConcern('life',this)"><span class="concernEmoji">🏠</span><span class="concernName">暮らし・ライフプラン</span><span class="concernSub">お金・結婚後・将来設計</span></button>
+</div><div id="choicePanel" class="choicePanel hidden"></div>
+<div class="futureCard"><b>🎀 今の私から、未来の私まで。</b><p>今日気になるのが美容でも、数年後は仕事、結婚、妊娠・出産かもしれない。悩みが変わったときに、またここへ戻ってこられる。ME TYPEは、ライフステージが変わっても「自分で選ぶ」を支える場所を目指します。</p></div></div>
+<button class="primary" onclick="restart()">もう一度診断する</button>
+<p class="note">※この診断は企画検証用のエンターテインメントです。性格・健康状態・医学的リスク等を診断するものではありません。美容・健康に関する判断では、信頼できる専門家の情報も確認してください。</p>
+</section>
+</div>
+
+<script>
+const Q=[
+["SNSで「この子かわいい！」と思う人を見つけた。",["素敵だと思うけど、自分は自分","私もこんな感じになりたいと思う"],"MS"],
+["服を選ぶとき、一番大切なのは？",["自分が着ていて気分が上がるか","周りから可愛いと思われそうか"],"MS"],
+["友達が急に垢抜けたら？",["参考にはするけど、自分に合う方法を考える","何をしたのかかなり気になる"],"MS"],
+["流行のメイクが自分には似合わなそう。",["似合うものを優先する","一度は流行を試してみたい"],"MS"],
+["自分磨きを始めるきっかけは？",["自分自身が変わりたいと思ったとき","SNSや周りの人から刺激を受けたとき"],"MS"],
+["友達に『こっちの方が似合うよ』と言われたら？",["最後は自分の好みで決める","周りの意見もかなり参考にする"],"MS"],
+["美容商品が気になったら？",["成分・口コミ・根拠まで調べたい","なんとなく良さそうなら試してみたい"],"TF"],
+["TikTokで『これで1か月で痩せた』という動画を見た。",["本当なのか他の情報も確認する","とりあえず保存してやってみたくなる"],"TF"],
+["コスメを買うときは？",["比較して納得したものを買う","見た瞬間の『かわいい！』も大事"],"TF"],
+["美容医療に興味を持ったら？",["リスクや費用まで詳しく調べる","ビフォーアフターを見て惹かれることが多い"],"TF"],
+["口コミが真逆だったら？",["さらに調べて判断材料を増やす","自分の直感で気になる方を選ぶ"],"TF"],
+["友達がおすすめしてくれた商品。",["一度自分でも調べる","友達が良いなら試してみたい"],"TF"],
+["やってみたい美容法を見つけた。",["比較的すぐ試す","しばらく調べたり考えたりする"],"AC"],
+["『今年は垢抜ける！』と決めたら？",["今日から何かひとつ始める","まず何をするか計画を立てる"],"AC"],
+["気になるイベントを見つけた。",["面白そうなら申し込む","予定や口コミを確認してから決める"],"AC"],
+["新しい髪型にしたくなったら？",["勢いで予約することもある","似合うか考えてから予約する"],"AC"],
+["将来やりたいことを思いついた。",["まず何か行動してみる","情報を集めて現実的か考える"],"AC"],
+["失敗する可能性が少しある挑戦は？",["やらない後悔より、やってみたい","失敗しない方法を考えてから動きたい"],"AC"],
+["5年後の自分について。",["こうなっていたい、という理想がある","あまり決めすぎず、その時を楽しみたい"],"GP"],
+["自分磨きについて近いのは？",["今よりもっと成長したい","今の自分の良さも大切にしたい"],"GP"],
+["目標を決めることは？",["モチベーションになる","決めすぎると窮屈に感じる"],"GP"],
+["理想の生活をSNSで見ると？",["自分もそこに近づきたいと思う","いいなと思うけど今の生活も好き"],"GP"],
+["『なりたい自分』は？",["比較的はっきりしている","その時々で変わっていいと思う"],"GP"],
+["自分の未来について近いのは？",["理想を描いてそこへ進みたい","今を楽しんだ先に未来があればいい"],"GP"]
+];
+
+const TYPES={
+MTAG:["👑","セルフプロデューサー","理想の私を、自分の力でつくっていく。"],
+MTAP:["🌿","マイウェイ開拓者","納得した道を、自分のペースで進む。"],
+MTCG:["📚","理想設計リサーチャー","調べて、考えて、理想を現実に。"],
+MTCP:["🫧","じっくりマイペース","自分に合うものだけ、丁寧に選ぶ。"],
+MFAG:["🚀","直感ドリーマー","好き！を信じて理想まで一直線。"],
+MFAP:["🎨","感性クリエイター","今のときめきが、次の私をつくる。"],
+MFCG:["💎","こだわり磨きタイプ","自分だけの理想を、じっくり育てる。"],
+MFCP:["🌷","ナチュラル開花タイプ","無理せず、自分らしく変わっていく。"],
+STAG:["🔥","努力型アップデーター","刺激を力に変えて、昨日の私を超える。"],
+STAP:["🔎","好奇心ハンター","周りからヒントを集め、軽やかに進む。"],
+STCG:["🧠","慎重トレンド研究家","流行も、納得してから取り入れたい。"],
+STCP:["☕","バランスウォッチャー","周りを見ながら、自分にちょうどよく。"],
+SFAG:["✨","トレンドスター","ワクワクしたら、すぐ新しい私へ。"],
+SFAP:["🦋","自由なトレンド蝶々","好きなものを楽しみながら変化する。"],
+SFCG:["🎀","理想追っかけガール","憧れを見つけて、自分らしく近づく。"],
+SFCP:["☁️","ふんわり共感タイプ","みんなの声を聞きながら、ゆっくり選ぶ。"]
+};
+
+let idx=0, selected=[];
+const $=id=>document.getElementById(id);
+
+function begin(){
+ $("start").classList.add("hidden"); $("quiz").classList.remove("hidden"); render();
+}
+function render(){
+ $("bar").style.width=(idx/Q.length*100)+"%";
+ $("qno").textContent=`QUESTION ${idx+1} / ${Q.length}`;
+ $("question").textContent=Q[idx][0];
+ $("answers").innerHTML="";
+ Q[idx][1].forEach((x,j)=>{
+   const b=document.createElement("button");
+   b.className="answer"; b.textContent=x; b.onclick=()=>choose(j); $("answers").appendChild(b);
+ });
+}
+function choose(j){ selected[idx]=j; idx++; idx<Q.length?render():finish(); }
+function goBack(){ if(idx>0){idx--;render();} }
+function finish(){
+ const c={M:0,S:0,T:0,F:0,A:0,C:0,G:0,P:0};
+ Q.forEach((q,k)=>c[q[2][selected[k]]]++);
+ const code=(c.M>=c.S?"M":"S")+(c.T>=c.F?"T":"F")+(c.A>=c.C?"A":"C")+(c.G>=c.P?"G":"P");
+ const r=TYPES[code];
+ $("quiz").classList.add("hidden"); $("result").classList.remove("hidden");
+ $("icon").textContent=r[0]; $("type").textContent=r[1]; $("code").textContent=code; $("catch").textContent=r[2];
+ $("desc").textContent="あなたの選び方のクセを4つの軸で表すと、このタイプ。周りの情報をどう受け取り、自分の選択につなげるかを知るヒントにしてみて。";
+ const labels=[["M","S","自分軸","周囲から刺激"],["T","F","情報・納得","直感・ときめき"],["A","C","まず行動","じっくり検討"],["G","P","理想を描く","今を大切に"]];
+ $("axes").innerHTML=labels.map(x=>{
+   const total=c[x[0]]+c[x[1]], pct=Math.round(c[x[0]]/total*100);
+   return `<div class="axis"><div class="axisTop"><span>${x[2]} ${pct}%</span><span>${100-pct}% ${x[3]}</span></div><div class="track"><div class="dot" style="width:${pct}%"></div></div></div>`;
+ }).join("");
+ $("advice").textContent=(code[0]=="S"?"周りから刺激を受ける力は長所。でも「みんながしているから」の前に「私はどうしたい？」を一度挟んでみて。":"自分の感覚を大切にできるのが強み。")+" "+(code[1]=="F"?"美容・健康情報は、行動前に情報源やリスクも確認すると、ワクワクをもっと安心して楽しめそう。":"調べる力は強み。情報が増えすぎたら、専門家情報・広告・体験談を分けて整理してみよう。");
+ $("strength").textContent=`あなたの強みは「${labels[0][code[0]=="M"?2:3]} × ${labels[1][code[1]=="T"?2:3]}」。誰かの正解ではなく、自分が納得できる選択へつなげていこう。`;
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+const CONCERNS={
+beauty:{icon:"💄",title:"美容・自分磨き",q:"「もっと可愛くなりたい。でも、情報が多すぎて何を選べばいい？」",text:"SNSの正解ではなく、今の自分に必要なケアを選ぶところから。体験談・広告・専門情報を分けて、自分が納得できる選択へ。",steps:["KNOW｜美容・からだの基礎情報を知る","TALK｜同世代のリアルな悩み・体験を見る","CHOOSE｜必要ならBELTAの美容・ボディケアを見てみる"],link:"https://ec.belta.co.jp/",linkText:"BELTAの商品を見てみる"},
+career:{icon:"💼",title:"キャリア・働き方",q:"「仕事も頑張りたい。でも、この先の人生まで考えると正解がわからない。」",text:"就活、転職、結婚、出産、仕事復帰。ひとつの正解を決めるのではなく、少し先を歩く女性の選択を知って、自分の選択肢を増やす。",steps:["KNOW｜いろいろな働き方・ライフコースを知る","TALK｜先輩女性に匿名で聞いてみる","CHOOSE｜今の自分が大切にしたいことを整理する"]},
+love:{icon:"💗",title:"恋愛・パートナー",q:"「好きだけじゃなく、この先のことも考えた方がいいのかな？」",text:"恋愛や結婚のタイミングも人それぞれ。誰かの普通ではなく、自分が大切にしたい関係や暮らしを考えるきっかけに。",steps:["KNOW｜価値観やライフプランを整理する","TALK｜同じ悩みを持つ人・先輩女性の体験を見る","CHOOSE｜ふたりで話したいことを見つける"]},
+body:{icon:"🌱",title:"からだ・妊娠の未来",q:"「今すぐじゃないけど、いつか妊娠を考えたときのために知っておきたい。」",text:"妊娠・妊活はタイプ診断で判断するものではありません。まず信頼できる情報に触れ、必要な時期には医療専門職へ相談する。そのうえで、自分のライフステージに合う選択肢を知る入口に。",steps:["KNOW｜プレコンセプションケアや妊娠前後の基礎情報を知る","TALK｜経験者の体験談は『ひとつの経験』として見る","CHOOSE｜必要な時期に専門家への相談やBELTAの商品を検討する"],link:"https://ec.belta.co.jp/category/preconception-care/",linkText:"BELTAの妊娠前・妊活中ケアを見る"},
+mind:{icon:"🫧",title:"こころ・自分らしさ",q:"「周りと比べて焦る。でも、本当は自分がどうしたいのかわからない。」",text:"比べてしまう自分を否定するより、何に心が動いたのかをヒントに。ME TYPEの4軸を使って『私はどうしたい？』に戻ってみよう。",steps:["KNOW｜今の気持ちを言葉にする","TALK｜匿名でモヤモヤを共有する","CHOOSE｜今日できる小さなMY CHOICEを決める"]},
+life:{icon:"🏠",title:"暮らし・ライフプラン",q:"「仕事、お金、結婚、子ども。全部考えると未来がちょっと不安。」",text:"全部を今決めなくても大丈夫。将来の選択肢を知り、今の自分が優先したいことから少しずつ整理する。",steps:["KNOW｜人生の選択肢と必要なお金を知る","TALK｜年代の違う女性のリアルを知る","CHOOSE｜今から準備したいことをひとつ選ぶ"]}
+};
+function showConcern(key,btn){document.querySelectorAll(".concernBtn").forEach(x=>x.classList.remove("active"));btn.classList.add("active");const d=CONCERNS[key],panel=$("choicePanel");const link=d.link?`<a class="linkBtn" href="${d.link}" target="_blank" rel="noopener">${d.linkText} →</a>`:"";panel.innerHTML=`<div class="microLabel">FOR YOUR NEXT CHOICE</div><h3>${d.icon} ${d.title}</h3><p><b>${d.q}</b></p><p>${d.text}</p><div class="pathSteps">${d.steps.map(x=>`<div class="pathStep">${x}</div>`).join("")}</div><div class="ctaRow"><button class="softBtn" onclick="demoMessage()">同じ悩みを持つ人の投稿を見る</button><button class="softBtn" onclick="demoMessage()">先輩女性に匿名で聞いてみる</button>${link}</div>`;panel.classList.remove("hidden");panel.scrollIntoView({behavior:"smooth",block:"nearest"});}
+function demoMessage(){const old=document.querySelector(".demoToast");if(old)old.remove();const t=document.createElement("div");t.className="demoToast";t.textContent="💌 コミュニティ機能は次のプロトタイプで実装予定です";document.body.appendChild(t);setTimeout(()=>t.remove(),2600);}
+
+function restart(){idx=0;selected=[];$("result").classList.add("hidden");$("start").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"});}
+</script>
+</body>
+</html>
