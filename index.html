@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fff5f8">
+<title>ME TYPE｜自分磨きタイプ診断</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;color:#493a43;background:linear-gradient(145deg,#fff9f5,#fcedf3 55%,#f1ebf8);min-height:100vh}
+.wrap{max-width:720px;margin:auto;padding:24px 14px 60px}
+.card{background:rgba(255,255,255,.94);border-radius:28px;padding:26px;box-shadow:0 18px 55px rgba(105,68,85,.12)}
+.logo{font-size:13px;font-weight:900;letter-spacing:.13em}.logo b{color:#d985a4}
+.hero{text-align:center;font-size:66px;margin:16px}
+.pill{display:inline-block;background:#f9dce8;padding:8px 13px;border-radius:99px;font-size:12px;font-weight:800}
+h1{font-size:34px;line-height:1.2;margin:18px 0 12px}h2{font-size:23px;line-height:1.55}
+.sub{font-size:14px;line-height:1.9;color:#77666e}
+.primary{width:100%;border:0;border-radius:18px;padding:17px;background:#493a43;color:#fff;font-size:16px;font-weight:800;margin-top:20px;cursor:pointer}
+.hidden{display:none}
+.progress{height:8px;background:#f1e7eb;border-radius:9px;overflow:hidden;margin:18px 0 27px}
+.bar{height:100%;background:linear-gradient(90deg,#e89bb5,#c5a6d8);transition:.25s}
+.qno{font-size:12px;color:#d985a4;font-weight:900}
+.answers{display:grid;gap:11px}
+.answer{border:1.5px solid #eadce2;background:#fff;border-radius:18px;padding:16px;text-align:left;color:#493a43;font-size:15px;line-height:1.5;cursor:pointer}
+.answer:active{transform:scale(.99);background:#fff7fa}
+.back{border:0;background:none;color:#9b8790;margin-top:18px;cursor:pointer}
+.resultIcon{text-align:center;font-size:70px}.type{text-align:center;font-size:28px;font-weight:900}
+.code{text-align:center;font-size:12px;letter-spacing:.18em;color:#a88b98;margin-top:4px}
+.catch{text-align:center;color:#d985a4;font-weight:800;margin:10px 0 20px}
+.axis{margin:15px 0}.axisTop{display:flex;justify-content:space-between;font-size:11px;font-weight:800}
+.track{height:10px;background:#eee6ea;border-radius:10px;overflow:hidden;margin-top:7px}.dot{height:100%;background:linear-gradient(90deg,#e89ab5,#c6a9da)}
+.box{background:#fff6fa;border-radius:20px;padding:18px;margin-top:18px;line-height:1.8}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.tag{font-size:12px;background:#fff;border:1px solid #eadce2;border-radius:99px;padding:8px 11px}
+.note{font-size:10px;line-height:1.6;color:#9b8a91;margin-top:18px}
+@media(max-width:520px){.wrap{padding:14px 12px 40px}.card{padding:22px 18px;border-radius:24px}h1{font-size:30px}.hero{font-size:60px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section id="start" class="card">
+<div class="logo">MY <b>ME TYPE</b></div>
+<div class="hero">🪞🎀</div>
+<span class="pill">全24問｜約3分</span>
+<h1>「可愛くなりたい」の<br>その先の、わたしへ。</h1>
+<p class="sub">SNS、美容、自分磨き、将来。24の質問から、あなたの「選び方のクセ」を4つの軸でチェック。16種類のME TYPEから、あなたに近いタイプを見つけます。</p>
+<button class="primary" onclick="begin()">診断をはじめる ♡</button>
+</section>
+
+<section id="quiz" class="card hidden">
+<div class="logo">MY <b>ME TYPE</b></div>
+<div class="progress"><div id="bar" class="bar"></div></div>
+<div id="qno" class="qno"></div>
+<h2 id="question"></h2>
+<div id="answers" class="answers"></div>
+<button class="back" onclick="goBack()">← ひとつ戻る</button>
+</section>
+
+<section id="result" class="card hidden">
+<div class="logo">YOUR <b>ME TYPE</b></div>
+<div id="icon" class="resultIcon"></div>
+<div id="type" class="type"></div>
+<div id="code" class="code"></div>
+<div id="catch" class="catch"></div>
+<p id="desc" class="sub"></p>
+<div id="axes"></div>
+<div class="box"><b>💌 MY CHOICE</b><div id="advice" style="margin-top:7px"></div></div>
+<div class="box"><b>あなたの強み</b><div id="strength" style="margin-top:7px"></div></div>
+<div class="box"><b>今、気になるテーマは？</b><div class="tags"><span class="tag">体型・食生活</span><span class="tag">肌・美容</span><span class="tag">美容医療</span><span class="tag">自信</span><span class="tag">キャリア</span><span class="tag">お金・将来</span></div></div>
+<button class="primary" onclick="restart()">もう一度診断する</button>
+<p class="note">※この診断は企画検証用のエンターテインメントです。性格・健康状態・医学的リスク等を診断するものではありません。美容・健康に関する判断では、信頼できる専門家の情報も確認してください。</p>
+</section>
+</div>
+
+<script>
+const Q=[
+["SNSで「この子かわいい！」と思う人を見つけた。",["素敵だと思うけど、自分は自分","私もこんな感じになりたいと思う"],"MS"],
+["服を選ぶとき、一番大切なのは？",["自分が着ていて気分が上がるか","周りから可愛いと思われそうか"],"MS"],
+["友達が急に垢抜けたら？",["参考にはするけど、自分に合う方法を考える","何をしたのかかなり気になる"],"MS"],
+["流行のメイクが自分には似合わなそう。",["似合うものを優先する","一度は流行を試してみたい"],"MS"],
+["自分磨きを始めるきっかけは？",["自分自身が変わりたいと思ったとき","SNSや周りの人から刺激を受けたとき"],"MS"],
+["友達に『こっちの方が似合うよ』と言われたら？",["最後は自分の好みで決める","周りの意見もかなり参考にする"],"MS"],
+["美容商品が気になったら？",["成分・口コミ・根拠まで調べたい","なんとなく良さそうなら試してみたい"],"TF"],
+["TikTokで『これで1か月で痩せた』という動画を見た。",["本当なのか他の情報も確認する","とりあえず保存してやってみたくなる"],"TF"],
+["コスメを買うときは？",["比較して納得したものを買う","見た瞬間の『かわいい！』も大事"],"TF"],
+["美容医療に興味を持ったら？",["リスクや費用まで詳しく調べる","ビフォーアフターを見て惹かれることが多い"],"TF"],
+["口コミが真逆だったら？",["さらに調べて判断材料を増やす","自分の直感で気になる方を選ぶ"],"TF"],
+["友達がおすすめしてくれた商品。",["一度自分でも調べる","友達が良いなら試してみたい"],"TF"],
+["やってみたい美容法を見つけた。",["比較的すぐ試す","しばらく調べたり考えたりする"],"AC"],
+["『今年は垢抜ける！』と決めたら？",["今日から何かひとつ始める","まず何をするか計画を立てる"],"AC"],
+["気になるイベントを見つけた。",["面白そうなら申し込む","予定や口コミを確認してから決める"],"AC"],
+["新しい髪型にしたくなったら？",["勢いで予約することもある","似合うか考えてから予約する"],"AC"],
+["将来やりたいことを思いついた。",["まず何か行動してみる","情報を集めて現実的か考える"],"AC"],
+["失敗する可能性が少しある挑戦は？",["やらない後悔より、やってみたい","失敗しない方法を考えてから動きたい"],"AC"],
+["5年後の自分について。",["こうなっていたい、という理想がある","あまり決めすぎず、その時を楽しみたい"],"GP"],
+["自分磨きについて近いのは？",["今よりもっと成長したい","今の自分の良さも大切にしたい"],"GP"],
+["目標を決めることは？",["モチベーションになる","決めすぎると窮屈に感じる"],"GP"],
+["理想の生活をSNSで見ると？",["自分もそこに近づきたいと思う","いいなと思うけど今の生活も好き"],"GP"],
+["『なりたい自分』は？",["比較的はっきりしている","その時々で変わっていいと思う"],"GP"],
+["自分の未来について近いのは？",["理想を描いてそこへ進みたい","今を楽しんだ先に未来があればいい"],"GP"]
+];
+
+const TYPES={
+MTAG:["👑","セルフプロデューサー","理想の私を、自分の力でつくっていく。"],
+MTAP:["🌿","マイウェイ開拓者","納得した道を、自分のペースで進む。"],
+MTCG:["📚","理想設計リサーチャー","調べて、考えて、理想を現実に。"],
+MTCP:["🫧","じっくりマイペース","自分に合うものだけ、丁寧に選ぶ。"],
+MFAG:["🚀","直感ドリーマー","好き！を信じて理想まで一直線。"],
+MFAP:["🎨","感性クリエイター","今のときめきが、次の私をつくる。"],
+MFCG:["💎","こだわり磨きタイプ","自分だけの理想を、じっくり育てる。"],
+MFCP:["🌷","ナチュラル開花タイプ","無理せず、自分らしく変わっていく。"],
+STAG:["🔥","努力型アップデーター","刺激を力に変えて、昨日の私を超える。"],
+STAP:["🔎","好奇心ハンター","周りからヒントを集め、軽やかに進む。"],
+STCG:["🧠","慎重トレンド研究家","流行も、納得してから取り入れたい。"],
+STCP:["☕","バランスウォッチャー","周りを見ながら、自分にちょうどよく。"],
+SFAG:["✨","トレンドスター","ワクワクしたら、すぐ新しい私へ。"],
+SFAP:["🦋","自由なトレンド蝶々","好きなものを楽しみながら変化する。"],
+SFCG:["🎀","理想追っかけガール","憧れを見つけて、自分らしく近づく。"],
+SFCP:["☁️","ふんわり共感タイプ","みんなの声を聞きながら、ゆっくり選ぶ。"]
+};
+
+let idx=0, selected=[];
+const $=id=>document.getElementById(id);
+
+function begin(){
+ $("start").classList.add("hidden"); $("quiz").classList.remove("hidden"); render();
+}
+function render(){
+ $("bar").style.width=(idx/Q.length*100)+"%";
+ $("qno").textContent=`QUESTION ${idx+1} / ${Q.length}`;
+ $("question").textContent=Q[idx][0];
+ $("answers").innerHTML="";
+ Q[idx][1].forEach((x,j)=>{
+   const b=document.createElement("button");
+   b.className="answer"; b.textContent=x; b.onclick=()=>choose(j); $("answers").appendChild(b);
+ });
+}
+function choose(j){ selected[idx]=j; idx++; idx<Q.length?render():finish(); }
+function goBack(){ if(idx>0){idx--;render();} }
+function finish(){
+ const c={M:0,S:0,T:0,F:0,A:0,C:0,G:0,P:0};
+ Q.forEach((q,k)=>c[q[2][selected[k]]]++);
+ const code=(c.M>=c.S?"M":"S")+(c.T>=c.F?"T":"F")+(c.A>=c.C?"A":"C")+(c.G>=c.P?"G":"P");
+ const r=TYPES[code];
+ $("quiz").classList.add("hidden"); $("result").classList.remove("hidden");
+ $("icon").textContent=r[0]; $("type").textContent=r[1]; $("code").textContent=code; $("catch").textContent=r[2];
+ $("desc").textContent="あなたの選び方のクセを4つの軸で表すと、このタイプ。周りの情報をどう受け取り、自分の選択につなげるかを知るヒントにしてみて。";
+ const labels=[["M","S","自分軸","周囲から刺激"],["T","F","情報・納得","直感・ときめき"],["A","C","まず行動","じっくり検討"],["G","P","理想を描く","今を大切に"]];
+ $("axes").innerHTML=labels.map(x=>{
+   const total=c[x[0]]+c[x[1]], pct=Math.round(c[x[0]]/total*100);
+   return `<div class="axis"><div class="axisTop"><span>${x[2]} ${pct}%</span><span>${100-pct}% ${x[3]}</span></div><div class="track"><div class="dot" style="width:${pct}%"></div></div></div>`;
+ }).join("");
+ $("advice").textContent=(code[0]=="S"?"周りから刺激を受ける力は長所。でも「みんながしているから」の前に「私はどうしたい？」を一度挟んでみて。":"自分の感覚を大切にできるのが強み。")+" "+(code[1]=="F"?"美容・健康情報は、行動前に情報源やリスクも確認すると、ワクワクをもっと安心して楽しめそう。":"調べる力は強み。情報が増えすぎたら、専門家情報・広告・体験談を分けて整理してみよう。");
+ $("strength").textContent=`あなたの強みは「${labels[0][code[0]=="M"?2:3]} × ${labels[1][code[1]=="T"?2:3]}」。誰かの正解ではなく、自分が納得できる選択へつなげていこう。`;
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function restart(){idx=0;selected=[];$("result").classList.add("hidden");$("start").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"});}
+</script>
+</body>
+</html>
